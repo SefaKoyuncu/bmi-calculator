@@ -12,6 +12,7 @@
     { "name": "bmi_result", "value": "VKİ: " },
     { "name": "history", "value": "Geçmiş" },
     { "name": "reminders", "value": "Hatırlatıcılar" },
+    { "name": "settings", "value": "Ayarlar" },
     { "name": "save", "value": "Kaydet" }
   ]
 }

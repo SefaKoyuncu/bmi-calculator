@@ -1,13 +1,13 @@
 import { TabPage } from './TabPage';
 import { HistoryPage } from './HistoryPage';
+import { SettingsPage } from './SettingsPage';
 import Header from '../components/Header';
 import { DBManager } from '../utils/DBManager';
-import { ReminderManager } from '../utils/ReminderManager';
 import { PreferencesUtil } from '../utils/PreferencesUtil';
 
 @Component
 export struct PickerItem {
-  @Prop label: string;
+  @Prop label: Resource;
   @Prop value: string;
   @Prop unit: string;
   onClickAction: () => void = () => {};
@@ -28,7 +28,7 @@ export struct PickerItem {
           .margin({ left: 4, top: 8 })
       }
     }
-    .width('100%')
+    .width('90%')
     .padding(8)
     .backgroundColor('#1A1A1A')
     .borderRadius(12)
@@ -44,7 +44,6 @@ struct Index {
   @State weightValue: number = 70
   @State heightValue: number = 170
   @State gender: number = 1 // 0 for female, 1 for male
-  @State isReminderActive: boolean = false
   @Provide('NavPathStack') pageStack: NavPathStack = new NavPathStack()
 
   private weights: string[] = []
@@ -61,8 +60,6 @@ struct Index {
     const context = getContext(this);
     await DBManager.getInstance().init(context);
     await PreferencesUtil.getInstance().init(context);
-
-    this.isReminderActive = await PreferencesUtil.getInstance().getValue('REMINDER_ACTIVE', false) as boolean;
   }
 
   @Builder
@@ -71,138 +68,134 @@ struct Index {
       TabPage()
     } else if (name === 'HistoryPage') {
       HistoryPage()
+    } else if (name === 'SettingsPage') {
+      SettingsPage()
     }
   }
 
   build() {
     Navigation(this.pageStack) {
-      Column() {
-        Header()
-          .margin({ top: 30, bottom: 10 })
+      Stack({ alignContent: Alignment.Bottom }) {
+        Column() {
+          Header()
+            .margin({ top: 35, bottom: 5 })
 
-        List({ space: 10 }) {
-          ListItem() {
-            Row() {
-              Text($r('app.string.female'))
-                .fontSize(12)
-                .fontColor(this.gender === 0 ? $r('app.color.blue_color') : Color.White)
-              Radio({ value: 'female', group: 'gender' })
-                .checked(this.gender === 0)
-                .width(20)
-                .height(20)
-                .onChange((isChecked: boolean) => {
-                  if (isChecked) this.gender = 0
-                })
+          List({ space: 8 }) {
+            ListItem() {
+              Row() {
+                Text($r('app.string.female'))
+                  .fontSize(10)
+                  .fontColor(this.gender === 0 ? $r('app.color.blue_color') : Color.White)
+                Radio({ value: 'female', group: 'gender' })
+                  .checked(this.gender === 0)
+                  .width(18)
+                  .height(18)
+                  .onChange((isChecked: boolean) => {
+                    if (isChecked) this.gender = 0
+                  })
 
-              Blank().width(20)
+                Blank().width(15)
 
-              Radio({ value: 'male', group: 'gender' })
-                .checked(this.gender === 1)
-                .width(20)
-                .height(20)
-                .onChange((isChecked: boolean) => {
-                  if (isChecked) this.gender = 1
-                })
-              Text($r('app.string.male'))
-                .fontSize(12)
-                .fontColor(this.gender === 1 ? $r('app.color.blue_color') : Color.White)
+                Radio({ value: 'male', group: 'gender' })
+                  .checked(this.gender === 1)
+                  .width(18)
+                  .height(18)
+                  .onChange((isChecked: boolean) => {
+                    if (isChecked) this.gender = 1
+                  })
+                Text($r('app.string.male'))
+                  .fontSize(10)
+                  .fontColor(this.gender === 1 ? $r('app.color.blue_color') : Color.White)
+              }
+              .width('100%')
+              .justifyContent(FlexAlign.Center)
             }
-            .width('100%')
-            .justifyContent(FlexAlign.Center)
-          }
 
-          ListItem() {
-            PickerItem({
-              label: 'Weight',
-              value: this.weightValue.toString(),
-              unit: 'kg',
-              onClickAction: () => {
-                TextPickerDialog.show({
-                  range: this.weights,
-                  selected: this.weightValue - 20,
-                  onAccept: (value: TextPickerResult) => {
-                    this.weightValue = parseInt(value.value as string)
-                  }
-                })
-              }
-            })
-          }
-
-          ListItem() {
-            PickerItem({
-              label: 'Height',
-              value: this.heightValue.toString(),
-              unit: 'cm',
-              onClickAction: () => {
-                TextPickerDialog.show({
-                  range: this.heights,
-                  selected: this.heightValue - 50,
-                  onAccept: (value: TextPickerResult) => {
-                    this.heightValue = parseInt(value.value as string)
-                  }
-                })
-              }
-            })
-          }
-
-          ListItem() {
-            Button($r('app.string.calculate'))
-              .width('90%')
-              .height(40)
-              .backgroundColor($r('app.color.blue_color'))
-              .borderRadius(20)
-              .onClick(() => {
-                let bmi = this.weightValue / ((this.heightValue / 100)**2)
-                this.pageStack.pushPath({
-                  name: 'TabPage',
-                  param: [bmi.toFixed(1), this.weightValue, this.heightValue]
-                })
-              })
-          }
-          .margin({ top: 10 })
-
-          ListItem() {
-            Button($r('app.string.history'))
-              .width('90%')
-              .height(40)
-              .backgroundColor(Color.Transparent)
-              .borderWidth(1)
-              .borderColor($r('app.color.blue_color'))
-              .fontColor($r('app.color.blue_color'))
-              .fontSize(12)
-              .borderRadius(20)
-              .onClick(() => {
-                this.pageStack.pushPath({ name: 'HistoryPage' })
-              })
-          }
-
-          ListItem() {
-            Row() {
-               Text($r('app.string.reminders'))
-                 .fontSize(12)
-                 .fontColor(Color.White)
-               Blank()
-               Toggle({ type: ToggleType.Switch, isOn: this.isReminderActive })
-                 .selectedColor($r('app.color.blue_color'))
-                 .onChange(async (isOn: boolean) => {
-                    this.isReminderActive = isOn
-                    await PreferencesUtil.getInstance().putValue('REMINDER_ACTIVE', isOn);
-                    if (isOn) {
-                      await ReminderManager.getInstance().addWeeklyReminder(getContext(this))
-                    } else {
-                      await ReminderManager.getInstance().cancelAllReminders()
+            ListItem() {
+              PickerItem({
+                label: $r('app.string.weight'),
+                value: this.weightValue.toString(),
+                unit: 'kg',
+                onClickAction: () => {
+                  TextPickerDialog.show({
+                    range: this.weights,
+                    selected: this.weightValue - 20,
+                    onAccept: (value: TextPickerResult) => {
+                      this.weightValue = parseInt(value.value as string)
                     }
-                 })
+                  })
+                }
+              })
             }
-            .width('90%')
-            .padding(10)
-            .backgroundColor('#1A1A1A')
-            .borderRadius(12)
+
+            ListItem() {
+              PickerItem({
+                label: $r('app.string.height'),
+                value: this.heightValue.toString(),
+                unit: 'cm',
+                onClickAction: () => {
+                  TextPickerDialog.show({
+                    range: this.heights,
+                    selected: this.heightValue - 50,
+                    onAccept: (value: TextPickerResult) => {
+                      this.heightValue = parseInt(value.value as string)
+                    }
+                  })
+                }
+              })
+            }
+
+            ListItem() {
+              Button($r('app.string.calculate'))
+                .width('90%')
+                .height(36)
+                .backgroundColor($r('app.color.blue_color'))
+                .borderRadius(18)
+                .onClick(() => {
+                  let bmi = this.weightValue / ((this.heightValue / 100)**2)
+                  this.pageStack.pushPath({
+                    name: 'TabPage',
+                    param: [bmi.toFixed(1), this.weightValue, this.heightValue]
+                  })
+                })
+            }
+            .margin({ top: 5, bottom: 40 })
           }
+          .width('100%')
+          .layoutWeight(1)
+          .alignListItem(ListItemAlign.Center)
         }
         .width('100%')
-        .layoutWeight(1)
-        .alignListItem(ListItemAlign.Center)
+        .height('100%')
+
+        Row() {
+          Button({ type: ButtonType.Circle }) {
+            SymbolGlyph($r('sys.symbol.clock_fill'))
+              .fontSize(20)
+              .fontColor([Color.White])
+          }
+          .width(36)
+          .height(36)
+          .backgroundColor('#262626')
+          .onClick(() => {
+            this.pageStack.pushPath({ name: 'HistoryPage' })
+          })
+
+          Blank().width(40)
+
+          Button({ type: ButtonType.Circle }) {
+            SymbolGlyph($r('sys.symbol.gear_shape_fill'))
+              .fontSize(20)
+              .fontColor([Color.White])
+          }
+          .width(36)
+          .height(36)
+          .backgroundColor('#262626')
+          .onClick(() => {
+            this.pageStack.pushPath({ name: 'SettingsPage' })
+          })
+        }
+        .margin({ bottom: 15 })
       }
       .width('100%')
       .height('100%')

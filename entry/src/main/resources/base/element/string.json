@@ -49,6 +49,10 @@
       "value": "Reminders"
     },
     {
+      "name": "settings",
+      "value": "Settings"
+    },
+    {
       "name": "save",
       "value": "Save"
     }

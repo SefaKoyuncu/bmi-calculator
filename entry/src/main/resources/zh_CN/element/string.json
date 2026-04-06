@@ -12,6 +12,7 @@
     { "name": "bmi_result", "value": "BMI: " },
     { "name": "history", "value": "历史记录" },
     { "name": "reminders", "value": "提醒" },
+    { "name": "settings", "value": "设置" },
     { "name": "save", "value": "保存" }
   ]
 }

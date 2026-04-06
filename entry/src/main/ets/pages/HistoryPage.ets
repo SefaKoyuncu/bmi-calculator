@@ -25,11 +25,12 @@ export struct HistoryPage {
             .fontColor(Color.White)
         }
         .width('100%')
-        .padding({ left: 20, top: 40, bottom: 10 })
+        .padding({ top: 40, bottom: 10 })
+        .justifyContent(FlexAlign.Center)
 
         if (this.records.length === 0) {
           Column() {
-            Text('No records yet.')
+            Text('Empty')
               .fontColor($r('app.color.text_secondary'))
               .fontSize(14)
           }

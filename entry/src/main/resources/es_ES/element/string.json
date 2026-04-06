@@ -12,6 +12,7 @@
     { "name": "bmi_result", "value": "IMC: " },
     { "name": "history", "value": "Historial" },
     { "name": "reminders", "value": "Recordatorios" },
+    { "name": "settings", "value": "Ajustes" },
     { "name": "save", "value": "Guardar" }
   ]
 }
