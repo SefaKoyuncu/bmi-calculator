@@ -52,20 +52,6 @@
             "resource": "$profile:backup_config"
           }
         ]
-      },
-      {
-        "name": "WidgetCardAbility",
-        "srcEntry": "./ets/widget/WidgetCardAbility.ets",
-        "label": "$string:EntryAbility_label",
-        "description": "BMI Widget",
-        "type": "form",
-        "exported": false,
-        "metadata": [
-          {
-            "name": "ohos.extension.form",
-            "resource": "$profile:form_config"
-          }
-        ]
       }
     ]
   }

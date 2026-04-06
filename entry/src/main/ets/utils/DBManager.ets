@@ -1,4 +1,3 @@
-import { formProvider, formBindingData } from '@kit.FormKit';
 import { relationalStore } from '@kit.ArkData';
 import { common } from '@kit.AbilityKit';
 
@@ -62,39 +61,8 @@ export class DBManager {
 
     try {
       await this.rdbStore.insert(this.TABLE_NAME, valueBucket);
-      this.updateWidget(bmi);
     } catch (err) {
       console.error('DBManager addRecord failed', JSON.stringify(err));
-    }
-  }
-
-  private async updateWidget(bmiValue: string): Promise<void> {
-    if (!this.context) return;
-
-    const bmiNum = parseFloat(bmiValue);
-    let category = 'Unknown';
-    if (bmiNum < 18.5) category = 'Underweight';
-    else if (bmiNum < 24.9) category = 'Healthy';
-    else if (bmiNum < 29.9) category = 'Overweight';
-    else category = 'Obese';
-
-    const formData: Record<string, string> = {
-      'bmi': bmiValue,
-      'category': category
-    };
-
-    try {
-      // In HarmonyOS NEXT, we can use formProvider.getFormsInfo() to get form instances
-      // and update them accordingly.
-      const formInfos = await formProvider.getFormsInfo();
-      if (formInfos && formInfos.length > 0) {
-        // We update all forms of this ability with the new data
-        // For multiple instances, we'd iterate through form instances
-        // Simplified for this scope
-        // await formProvider.updateForm(formId, formBindingData.createFormBindingData(formData));
-      }
-    } catch (err) {
-      console.error('DBManager updateWidget failed', JSON.stringify(err));
     }
   }
 
