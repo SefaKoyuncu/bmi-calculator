@@ -1,13 +1,16 @@
 @Component
-export default struct Header{
+export default struct Header {
   build() {
-    Text('BMI Calculator')
-      .fontSize(12)
-      .fontColor(Color.White)
-      .fontWeight(FontWeight.Bold)
-      .backgroundColor($r('app.color.blue_color'))
-      .borderRadius(6)
-      .width('80%')
-      .height('10%')
+    Row() {
+      Text($r('app.string.header'))
+        .fontSize(14)
+        .fontColor(Color.White)
+        .fontWeight(FontWeight.Bold)
+    }
+    .justifyContent(FlexAlign.Center)
+    .backgroundColor($r('app.color.blue_color'))
+    .borderRadius(20)
+    .width('90%')
+    .height(40)
   }
 }
