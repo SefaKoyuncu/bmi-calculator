@@ -1,25 +1,3 @@
-class MyCurve {
-  public title: string;
-  public curve: Curve;
-  public color: Color | string;
-  public position: number;
-
-  constructor(title: string, curve: Curve, color: Color | string = '', position: number) {
-    this.title = title;
-    this.curve = curve;
-    this.color = color;
-    this.position = position;
-  }
-}
-
-const myCurves: MyCurve[] = [
-  new MyCurve(' Linear', Curve.Linear, '#f60207', 162),
-  new MyCurve(' Ease', Curve.Ease, '#ff9416', 120),
-  new MyCurve(' EaseIn', Curve.EaseIn, '#fde912', 90),
-  new MyCurve(' EaseOut', Curve.EaseOut, '#44e643', 54),
-  new MyCurve(' EaseInOut', Curve.EaseInOut, '#3caaff', 18)
-]
-
 @Component
 export struct TabPage {
   @State dRotate: number = 0;
@@ -27,8 +5,10 @@ export struct TabPage {
   @Consume('NavPathStack') pageStack: NavPathStack;
 
   aboutToAppear() {
-    const param = this.pageStack.getParamByName('TabPage')[0] as number;
-    this.bmiValue = param;
+    const params = this.pageStack.getParamByName('TabPage');
+    if (params && params.length > 0) {
+      this.bmiValue = params[0] as number;
+    }
 
     setTimeout(() => {
       if (!this.dRotate) {
@@ -48,76 +28,83 @@ export struct TabPage {
   }
 
   build() {
-    Column() {
-      NavDestination() {
-        Stack() {
-          Image($r('app.media.table'))
-            .width('100%')
-            .height('100%')
-            .padding({
-              bottom: 110
-            })
-          ForEach(myCurves, (item: MyCurve) => {
-            Column() {
-              Row()
-                .width(10)
-                .height(10)
-                .borderRadius(15)
-                .backgroundColor(item.color)
-                .clip(true)
-            }
-            .width('50%')
-            .height('55%')
-            .rotate({ angle: this.dRotate - 90 })
-            .animation({
-              duration: 2000,
-              iterations: -1,
-              curve: item.curve,
-              delay: 100
-            })
-          }, (item: string, index: number) => item)
-          Column() {
-            Text(`BMI: ${this.bmiValue}`)
-              .fontSize(12)
-              .fontWeight(FontWeight.Bold)
-              .fontColor($r('app.color.blue_color'))
-              .height('14%')
-            Text(this.getMessageBasedOnBMI())
-              .fontStyle(FontStyle.Italic)
-              .fontSize(10)
-              .fontWeight(FontWeight.Bold)
-              .fontColor(Color.Red)
-              .height('14%')
-              .width('80%')
-              .padding({
-                top: 10
-              })
-          }
-          .padding({
-            top: 20
-          })
+    NavDestination() {
+      Stack() {
+        Image($r('app.media.table'))
+          .width('100%')
+          .height('100%')
+          .padding({ bottom: 110 })
+
+        // Gauge needle representation
+        Column() {
+          Row()
+            .width(10)
+            .height(10)
+            .borderRadius(5)
+            .backgroundColor(Color.Red)
+            .clip(true)
         }
-        .width('100%')
-        .height('100%')
-        .backgroundColor(Color.White)
+        .width('50%')
+        .height('55%')
+        .rotate({ angle: this.dRotate - 90 })
+        .animation({
+          duration: 2000,
+          curve: Curve.EaseInOut,
+          delay: 100
+        })
+
+        Column() {
+          Text(`BMI: ${this.bmiValue}`)
+            .fontSize(14)
+            .fontWeight(FontWeight.Bold)
+            .fontColor($r('app.color.blue_color'))
+
+          Text(this.getCategoryName())
+            .fontSize(12)
+            .fontWeight(FontWeight.Bold)
+            .fontColor(Color.Red)
+            .margin({ top: 5 })
+
+          Text(this.getMessageBasedOnBMI())
+            .fontStyle(FontStyle.Italic)
+            .fontSize(10)
+            .fontWeight(FontWeight.Medium)
+            .fontColor(Color.Black)
+            .height('20%')
+            .width('80%')
+            .textAlign(TextAlign.Center)
+            .margin({ top: 10 })
+
+          Button('Back')
+            .fontSize(10)
+            .height(25)
+            .margin({ top: 10 })
+            .onClick(() => this.pageStack.pop())
+        }
+        .padding({ top: 40 })
       }
-      .hideTitleBar(true)
-      .mode(NavDestinationMode.STANDARD)
+      .width('100%')
+      .height('100%')
+      .backgroundColor(Color.White)
     }
+    .hideTitleBar(true)
   }
 
-  private getMessageBasedOnBMI(): string {
+  private getCategoryName(): Resource {
     const bmi = this.bmiValue;
-    if (bmi < 18.5) {
-      return 'Your journey to strength starts here—small steps can lead to powerful transformations!';
-    } else if (bmi < 24.9) {
-      return 'You are in a great place—keep up the balance and stay strong and energized!';
-    } else if (bmi < 29.9) {
-      return 'Every healthy choice counts—you are closer to your goals than you think!';
-    } else if (bmi < 39.9) {
-      return 'This is your moment to rise—consistency will lead you to a healthier you!';
-    } else {
-      return 'You have the power to change your story—every effort is a step toward a brighter, healthier future!';
-    }
+    if (bmi < 18.5) return $r('app.string.bmi_category_underweight');
+    if (bmi < 24.9) return $r('app.string.bmi_category_normal');
+    if (bmi < 29.9) return $r('app.string.bmi_category_overweight');
+    if (bmi < 39.9) return $r('app.string.bmi_category_obese');
+    return $r('app.string.bmi_category_extremely_obese');
+  }
+
+  private getMessageBasedOnBMI(): Resource {
+    const bmi = this.bmiValue;
+    if (bmi < 18.5) return $r('app.string.bmi_tip_underweight');
+    if (bmi < 24.9) return $r('app.string.bmi_tip_normal');
+    if (bmi < 29.9) return $r('app.string.bmi_tip_overweight');
+    if (bmi < 39.9) return $r('app.string.bmi_tip_obese');
+    return $r('app.string.bmi_tip_extremely_obese');
   }
 }

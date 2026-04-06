@@ -2,107 +2,107 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "A simple BMI calculator for HarmonyOS Wearable devices."
+      "value": "适用于 HarmonyOS 可穿戴设备的简易 BMI 计算器。"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "BMI Calculator Ability"
+      "value": "BMI 计算器能力"
     },
     {
       "name": "EntryAbility_label",
-      "value": "BMI Calc"
+      "value": "BMI 计算"
     },
     {
       "name": "header",
-      "value": "BMI Calculator"
+      "value": "BMI 计算器"
     },
     {
       "name": "weight_label",
-      "value": "Weight"
+      "value": "体重"
     },
     {
       "name": "height_label",
-      "value": "Height"
+      "value": "身高"
     },
     {
       "name": "weight_placeholder_metric",
-      "value": "Weight in kg"
+      "value": "体重 (公斤)"
     },
     {
       "name": "height_placeholder_metric",
-      "value": "Height in cm"
+      "value": "身高 (厘米)"
     },
     {
       "name": "weight_placeholder_imperial",
-      "value": "Weight in lbs"
+      "value": "体重 (磅)"
     },
     {
       "name": "height_placeholder_imperial",
-      "value": "Height in inches"
+      "value": "身高 (英寸)"
     },
     {
       "name": "calculate_btn",
-      "value": "Calculate"
+      "value": "计算"
     },
     {
       "name": "history_btn",
-      "value": "History"
+      "value": "历史记录"
     },
     {
       "name": "unit_metric",
-      "value": "Metric (kg/cm)"
+      "value": "公制 (kg/cm)"
     },
     {
       "name": "unit_imperial",
-      "value": "Imperial (lb/in)"
+      "value": "英制 (lb/in)"
     },
     {
       "name": "bmi_category_underweight",
-      "value": "Underweight"
+      "value": "体重过轻"
     },
     {
       "name": "bmi_category_normal",
-      "value": "Normal"
+      "value": "体重正常"
     },
     {
       "name": "bmi_category_overweight",
-      "value": "Overweight"
+      "value": "超重"
     },
     {
       "name": "bmi_category_obese",
-      "value": "Obese"
+      "value": "肥胖"
     },
     {
       "name": "bmi_category_extremely_obese",
-      "value": "Extremely Obese"
+      "value": "极度肥胖"
     },
     {
       "name": "bmi_tip_underweight",
-      "value": "Your journey to strength starts here—small steps can lead to powerful transformations!"
+      "value": "您的强身之旅从此开始——小步前进也能带来巨大转变！"
     },
     {
       "name": "bmi_tip_normal",
-      "value": "You are in a great place—keep up the balance and stay strong and energized!"
+      "value": "您的状态非常好——请保持平衡，保持强壮和活力！"
     },
     {
       "name": "bmi_tip_overweight",
-      "value": "Every healthy choice counts—you are closer to your goals than you think!"
+      "value": "每一个健康的选择都很重要——您离目标比想象中更近！"
     },
     {
       "name": "bmi_tip_obese",
-      "value": "This is your moment to rise—consistency will lead you to a healthier you!"
+      "value": "这是您崛起的时刻——持之以恒将带给您更健康的自我！"
     },
     {
       "name": "bmi_tip_extremely_obese",
-      "value": "You have the power to change your story—every effort is a step toward a brighter, healthier future!"
+      "value": "您有力量改变自己的故事——每一份努力都是迈向灿烂、健康未来的一步！"
     },
     {
       "name": "history_title",
-      "value": "BMI History"
+      "value": "BMI 历史"
     },
     {
       "name": "no_history",
-      "value": "No history records found."
+      "value": "未找到历史记录。"
     }
   ]
 }

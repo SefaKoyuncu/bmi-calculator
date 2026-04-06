@@ -1,7 +1,7 @@
 @Component
 export default struct Header{
   build() {
-    Text('BMI Calculator')
+    Text($r('app.string.header'))
       .fontSize(12)
       .fontColor(Color.White)
       .fontWeight(FontWeight.Bold)
@@ -9,5 +9,6 @@ export default struct Header{
       .borderRadius(6)
       .width('80%')
       .height('10%')
+      .textAlign(TextAlign.Center)
   }
 }
