@@ -1,0 +1,17 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "Calculadora de IMC para HarmonyOS Wearable" },
+    { "name": "EntryAbility_desc", "value": "Habilidad de Calculadora de IMC" },
+    { "name": "EntryAbility_label", "value": "IMC Calc" },
+    { "name": "header", "value": "Calculadora de IMC" },
+    { "name": "weight", "value": "Peso" },
+    { "name": "height", "value": "Altura" },
+    { "name": "calculate", "value": "Calcular" },
+    { "name": "female", "value": "Femenino" },
+    { "name": "male", "value": "Masculino" },
+    { "name": "bmi_result", "value": "IMC: " },
+    { "name": "history", "value": "Historial" },
+    { "name": "reminders", "value": "Recordatorios" },
+    { "name": "save", "value": "Guardar" }
+  ]
+}

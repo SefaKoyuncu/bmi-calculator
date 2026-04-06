@@ -80,9 +80,8 @@ struct Index {
         Header()
           .margin({ top: 30, bottom: 10 })
 
-        // Using ArcList for better wearable circular adaptation
-        ArcList() {
-          ArcListItem() {
+        List({ space: 10 }) {
+          ListItem() {
             Row() {
               Text($r('app.string.female'))
                 .fontSize(12)
@@ -112,7 +111,7 @@ struct Index {
             .justifyContent(FlexAlign.Center)
           }
 
-          ArcListItem() {
+          ListItem() {
             PickerItem({
               label: 'Weight',
               value: this.weightValue.toString(),
@@ -129,7 +128,7 @@ struct Index {
             })
           }
 
-          ArcListItem() {
+          ListItem() {
             PickerItem({
               label: 'Height',
               value: this.heightValue.toString(),
@@ -146,23 +145,23 @@ struct Index {
             })
           }
 
-          ArcListItem() {
-            // Using ArcButton for primary action
-            ArcButton({
-              label: $r('app.string.calculate'),
-              onClick: () => {
+          ListItem() {
+            Button($r('app.string.calculate'))
+              .width('90%')
+              .height(40)
+              .backgroundColor($r('app.color.blue_color'))
+              .borderRadius(20)
+              .onClick(() => {
                 let bmi = this.weightValue / ((this.heightValue / 100)**2)
                 this.pageStack.pushPath({
                   name: 'TabPage',
                   param: [bmi.toFixed(1), this.weightValue, this.heightValue]
                 })
-              }
-            })
-            .backgroundColor($r('app.color.blue_color'))
-            .width('90%')
+              })
           }
+          .margin({ top: 10 })
 
-          ArcListItem() {
+          ListItem() {
             Button($r('app.string.history'))
               .width('90%')
               .height(40)
@@ -177,7 +176,7 @@ struct Index {
               })
           }
 
-          ArcListItem() {
+          ListItem() {
             Row() {
                Text($r('app.string.reminders'))
                  .fontSize(12)
@@ -203,6 +202,7 @@ struct Index {
         }
         .width('100%')
         .layoutWeight(1)
+        .alignListItem(ListItemAlign.Center)
       }
       .width('100%')
       .height('100%')

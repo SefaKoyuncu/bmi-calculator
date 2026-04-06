@@ -1,0 +1,17 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "BMI Calculator for HarmonyOS Wearable" },
+    { "name": "EntryAbility_desc", "value": "BMI Calculator Ability" },
+    { "name": "EntryAbility_label", "value": "BMI Calc" },
+    { "name": "header", "value": "BMI Calculator" },
+    { "name": "weight", "value": "Weight" },
+    { "name": "height", "value": "Height" },
+    { "name": "calculate", "value": "Calculate" },
+    { "name": "female", "value": "Female" },
+    { "name": "male", "value": "Male" },
+    { "name": "bmi_result", "value": "BMI: " },
+    { "name": "history", "value": "History" },
+    { "name": "reminders", "value": "Reminders" },
+    { "name": "save", "value": "Save" }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "HarmonyOS Giyilebilir için VKİ Hesaplayıcı" },
+    { "name": "EntryAbility_desc", "value": "VKİ Hesaplayıcı Yeteneği" },
+    { "name": "EntryAbility_label", "value": "VKİ Hesap" },
+    { "name": "header", "value": "VKİ Hesaplayıcı" },
+    { "name": "weight", "value": "Kilo" },
+    { "name": "height", "value": "Boy" },
+    { "name": "calculate", "value": "Hesapla" },
+    { "name": "female", "value": "Kadın" },
+    { "name": "male", "value": "Erkek" },
+    { "name": "bmi_result", "value": "VKİ: " },
+    { "name": "history", "value": "Geçmiş" },
+    { "name": "reminders", "value": "Hatırlatıcılar" },
+    { "name": "save", "value": "Kaydet" }
+  ]
+}

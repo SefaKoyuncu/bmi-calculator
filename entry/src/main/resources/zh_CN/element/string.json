@@ -1,0 +1,17 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "HarmonyOS 穿戴式 BMI 计算器" },
+    { "name": "EntryAbility_desc", "value": "BMI 计算器能力" },
+    { "name": "EntryAbility_label", "value": "BMI 计算" },
+    { "name": "header", "value": "BMI 计算器" },
+    { "name": "weight", "value": "体重" },
+    { "name": "height", "value": "身高" },
+    { "name": "calculate", "value": "计算" },
+    { "name": "female", "value": "女" },
+    { "name": "male", "value": "男" },
+    { "name": "bmi_result", "value": "BMI: " },
+    { "name": "history", "value": "历史记录" },
+    { "name": "reminders", "value": "提醒" },
+    { "name": "save", "value": "保存" }
+  ]
+}
