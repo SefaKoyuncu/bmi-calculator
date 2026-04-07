@@ -4,6 +4,7 @@ import { TabPage } from './TabPage';
 import { HistoryPage } from './HistoryPage';
 import { DBManager } from '../utils/DBManager';
 import { vibrator } from '@kit.SensorServiceKit';
+import { CustomValuePickerDialog } from '../components/CustomValuePickerDialog';
 
 @Entry
 @Component
@@ -13,6 +14,32 @@ struct Index {
   @State isMale: boolean = true
   @State focusOnWeight: boolean = true
   @Provide('NavPathStack') pageStack: NavPathStack = new NavPathStack()
+
+  weightDialogController: CustomDialogController = new CustomDialogController({
+    builder: CustomValuePickerDialog({
+      title: $r('app.string.weight'),
+      range: this.generateRange(30, 200),
+      selectedIndex: this.weightValue - 30,
+      confirm: (val: string) => {
+        this.weightValue = parseInt(val)
+      }
+    }),
+    alignment: DialogAlignment.Center,
+    customStyle: true
+  })
+
+  heightDialogController: CustomDialogController = new CustomDialogController({
+    builder: CustomValuePickerDialog({
+      title: $r('app.string.height'),
+      range: this.generateRange(100, 250),
+      selectedIndex: this.heightValue - 100,
+      confirm: (val: string) => {
+        this.heightValue = parseInt(val)
+      }
+    }),
+    alignment: DialogAlignment.Center,
+    customStyle: true
+  })
 
   @Builder
   PagesMap(name: string) {
@@ -51,13 +78,7 @@ struct Index {
             .borderColor($r('app.color.accent_color'))
             .onClick(() => {
               this.focusOnWeight = true
-              TextPickerDialog.show({
-                range: this.generateRange(30, 200),
-                selected: this.weightValue - 30,
-                onAccept: (result) => {
-                  this.weightValue = parseInt(result.value as string)
-                }
-              })
+              this.weightDialogController.open()
             })
           }
 
@@ -80,13 +101,7 @@ struct Index {
             .borderColor($r('app.color.accent_color'))
             .onClick(() => {
               this.focusOnWeight = false
-              TextPickerDialog.show({
-                range: this.generateRange(100, 250),
-                selected: this.heightValue - 100,
-                onAccept: (result) => {
-                  this.heightValue = parseInt(result.value as string)
-                }
-              })
+              this.heightDialogController.open()
             })
           }
 
